@@ -14,9 +14,10 @@ import org.springframework.stereotype.Service;
 import javax.cache.Cache;
 import javax.cache.integration.CacheLoaderException;
 import javax.cache.integration.CacheWriterException;
+import java.io.Serializable;
 
 @Service
-public class ContractCacheStore extends CacheStoreAdapter<ContractPK, Contract> {
+public class ContractCacheStore extends CacheStoreAdapter<ContractPK, Contract> implements Serializable{
     Logger logger = LoggerFactory.getLogger(ContractCacheStore.class);
 
     private static ContractRepository contractRepository;
