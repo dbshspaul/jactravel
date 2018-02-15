@@ -24,12 +24,13 @@ public class IgniteClientNode {
         org.apache.ignite.configuration.IgniteConfiguration igniteConfiguration = new org.apache.ignite.configuration.IgniteConfiguration();
 
         DataStorageConfiguration storageCfg = new DataStorageConfiguration();
-        storageCfg.getDefaultDataRegionConfiguration().setPersistenceEnabled(true);
         DataRegionConfiguration dataRegionConfiguration = new DataRegionConfiguration();
         dataRegionConfiguration.setName("Default_Region");
         dataRegionConfiguration.setMaxSize(4L * 1024 * 1024 * 1024);
+        dataRegionConfiguration.setPersistenceEnabled(true);
         storageCfg.setDataRegionConfigurations(dataRegionConfiguration);
         igniteConfiguration.setDataStorageConfiguration(storageCfg);
+
 
         TcpDiscoverySpi tcpDiscoverySpi = new TcpDiscoverySpi();
         TcpDiscoveryMulticastIpFinder ipFinder = new TcpDiscoveryMulticastIpFinder();
