@@ -8,6 +8,7 @@ import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.cache.CacheMode;
 import org.apache.ignite.configuration.CacheConfiguration;
+import org.apache.ignite.configuration.DataRegionConfiguration;
 import org.apache.ignite.configuration.DataStorageConfiguration;
 import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
 import org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder;
@@ -34,7 +35,11 @@ public class IgniteConfiguration {
         org.apache.ignite.configuration.IgniteConfiguration igniteConfiguration = new org.apache.ignite.configuration.IgniteConfiguration();
 
         DataStorageConfiguration storageCfg = new DataStorageConfiguration();
-        storageCfg.getDefaultDataRegionConfiguration().setPersistenceEnabled(true);
+        DataRegionConfiguration dataRegionConfiguration = new DataRegionConfiguration();
+        dataRegionConfiguration.setName("Default_Region");
+        dataRegionConfiguration.setMaxSize(4L * 1024 * 1024 * 1024);
+        dataRegionConfiguration.setPersistenceEnabled(true);
+        storageCfg.setDataRegionConfigurations(dataRegionConfiguration);
         igniteConfiguration.setDataStorageConfiguration(storageCfg);
 
         TcpDiscoverySpi tcpDiscoverySpi = new TcpDiscoverySpi();
