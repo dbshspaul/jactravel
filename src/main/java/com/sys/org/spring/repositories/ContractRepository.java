@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ContractRepository extends CrudRepository<Contract, ContractPK> {
-    @Override
-    Contract findOne(ContractPK contractPK);
+
 }

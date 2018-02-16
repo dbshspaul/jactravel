@@ -4,13 +4,14 @@ import org.springframework.cassandra.core.PrimaryKeyType;
 import org.springframework.data.cassandra.mapping.PrimaryKeyClass;
 import org.springframework.data.cassandra.mapping.PrimaryKeyColumn;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * created by My System on 19-Dec-17
  **/
 @PrimaryKeyClass
-public class PropertyPK {
+public class PropertyPK implements Serializable {
     @PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED)
     private String tenant_id;
     @PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED)

@@ -3,8 +3,8 @@ package com.sys.org.spring.controller;
 import com.sys.org.spring.idclass.ContractPK;
 import com.sys.org.spring.model.Contract;
 import com.sys.org.spring.repositories.ContractRepository;
+import com.sys.org.spring.util.ControllerUtility;
 import org.apache.ignite.IgniteCache;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class AppController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppController.class);
+public class ContractController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ContractController.class);
 
     @Autowired
     IgniteCache<ContractPK, Contract> contractCache;
@@ -81,7 +81,7 @@ public class AppController {
         boolean remove = contractCache.remove(contractPK);
 
         if (remove) {
-            entity = new ResponseEntityBuilder(new HashMap<>(), HttpStatus.OK)
+            entity = new ControllerUtility.ResponseEntityBuilder(new HashMap<>(), HttpStatus.OK)
                     .add("msg", "1 Contract successfully deleted")
                     .add("contract id", contractPK);
         } else {
@@ -100,30 +100,7 @@ public class AppController {
             response.put("msg", "Data updated successfully.");
             return new ResponseEntity(response, HttpStatus.CREATED);
         } catch (Exception e) {
-            return createResponseEntity(e);
-        }
-    }
-
-    @NotNull
-    private ResponseEntity createResponseEntity(Exception e, String... message) {
-        Map<String, String> response = new HashMap<>();
-        response.put("msg", message.length > 0 ? message[0] : "Failed to find data.");
-        response.put("cause", e.getMessage());
-        e.printStackTrace();
-        return new ResponseEntity(response, HttpStatus.EXPECTATION_FAILED);
-    }
-
-    class ResponseEntityBuilder extends ResponseEntity {
-        private Map<String, Object> response;
-
-        public ResponseEntityBuilder(Map<String, Object> response, HttpStatus status) {
-            super(response, status);
-            this.response = response;
-        }
-
-        public ResponseEntityBuilder add(String key, Object value) {
-            response.put(key, value);
-            return this;
+            return ControllerUtility.createResponseEntity(e);
         }
     }
 }

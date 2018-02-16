@@ -4,10 +4,11 @@ import org.springframework.cassandra.core.PrimaryKeyType;
 import org.springframework.data.cassandra.mapping.PrimaryKeyClass;
 import org.springframework.data.cassandra.mapping.PrimaryKeyColumn;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @PrimaryKeyClass
-public class RoomPK {
+public class RoomPK implements Serializable{
     @PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED)
     private Integer room_id;
     @PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED)

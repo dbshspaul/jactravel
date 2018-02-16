@@ -1,8 +1,17 @@
 package com.sys.org.spring.config;
 
 import com.sys.org.spring.idclass.ContractPK;
+import com.sys.org.spring.idclass.PropertyPK;
+import com.sys.org.spring.idclass.RatePK;
+import com.sys.org.spring.idclass.RoomPK;
 import com.sys.org.spring.ignitecache.store.ContractCacheStore;
+import com.sys.org.spring.ignitecache.store.PropertyCacheStore;
+import com.sys.org.spring.ignitecache.store.RateCacheStore;
+import com.sys.org.spring.ignitecache.store.RoomCacheStore;
 import com.sys.org.spring.model.Contract;
+import com.sys.org.spring.model.Property;
+import com.sys.org.spring.model.Rate;
+import com.sys.org.spring.model.Room;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
@@ -50,7 +59,6 @@ public class IgniteConfiguration {
 
         Ignite ignite = Ignition.start(igniteConfiguration);
         ignite.active(true);
-//        Ignite ignite = Ignition.start();
         LOGGER.info(">>>>>>>>>>>>>>>>Ignite Cache Started successfully");
         return ignite;
     }
@@ -58,8 +66,29 @@ public class IgniteConfiguration {
     @Bean(name = "contractCache")
     @Lazy
     public IgniteCache<ContractPK, Contract> getCache() {
-        LOGGER.info("creating contractCache");
+        LOGGER.info("creating contract Cache");
         return createCache("contractCache", ContractCacheStore.class);
+    }
+
+    @Bean(name = "roomCache")
+    @Lazy
+    public IgniteCache<RoomPK, Room> getRoomCache() {
+        LOGGER.info("creating room Cache");
+        return createCache("roomCache", RoomCacheStore.class);
+    }
+
+    @Bean(name = "rateCache")
+    @Lazy
+    public IgniteCache<RatePK, Rate> getRateCache() {
+        LOGGER.info("creating Rate Cache");
+        return createCache("rateCache", RateCacheStore.class);
+    }
+
+    @Bean(name = "propertyCache")
+    @Lazy
+    public IgniteCache<PropertyPK, Property> getPropertyCache() {
+        LOGGER.info("creating Property Cache");
+        return createCache("propertytCache", PropertyCacheStore.class);
     }
 
     private IgniteCache createCache(String cacheName, Class clazz) {
