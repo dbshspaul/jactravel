@@ -43,7 +43,7 @@ public class PropertyController {
         return entity;
     }
 
-    @GetMapping(value = "/property/{propertyId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @DeleteMapping(value = "/property/{propertyId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public ResponseEntity getDeleteById(@PathVariable(value = "propertyId") Integer propertyId,
                                         @RequestParam(value = "tenant_id") String tenantId) {
