@@ -59,7 +59,7 @@ public class IgniteConfiguration {
 
         Ignite ignite = Ignition.start(igniteConfiguration);
         ignite.active(true);
-        LOGGER.info(">>>>>>>>>>>>>>>>Ignite Cache Started successfully");
+        LOGGER.info(">>>>>>>>>>>>>>>>Ignite Cache client node Started successfully");
         return ignite;
     }
 
