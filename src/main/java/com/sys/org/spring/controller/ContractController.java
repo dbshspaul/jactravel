@@ -2,7 +2,6 @@ package com.sys.org.spring.controller;
 
 import com.sys.org.spring.idclass.ContractPK;
 import com.sys.org.spring.model.Contract;
-import com.sys.org.spring.repositories.ContractRepository;
 import com.sys.org.spring.util.ControllerUtility;
 import org.apache.ignite.IgniteCache;
 import org.slf4j.Logger;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -24,27 +22,6 @@ public class ContractController {
 
     @Autowired
     IgniteCache<ContractPK, Contract> contractCache;
-
-    ContractRepository contractRepository;
-
-    @Autowired
-    public void setContractRepository(ContractRepository contractRepository) {
-        this.contractRepository = contractRepository;
-    }
-
-    @GetMapping(path = "/")
-    @ResponseBody
-    public String getData() {
-        LOGGER.info("request to /");
-        return "Hello India!!!";
-    }
-
-    @GetMapping(path = "/contracts", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public ResponseEntity getAllContracts() {
-        List<Contract> contractList = (List<Contract>) contractRepository.findAll();
-        return new ResponseEntity(contractList, HttpStatus.FOUND);
-    }
 
     @GetMapping(value = "/contract/{contractId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
@@ -94,6 +71,19 @@ public class ContractController {
     @PostMapping(value = "/contract", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public ResponseEntity setContract(@RequestParam(name = "contract", required = true) Contract contract) {
+        try {
+            contractCache.put(contract.getContractPK(), contract);
+            Map<String, String> response = new HashMap<>();
+            response.put("msg", "Data inserted successfully.");
+            return new ResponseEntity(response, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ControllerUtility.createResponseEntity(e);
+        }
+    }
+
+    @PutMapping(value = "/contract", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public ResponseEntity updateContract(@RequestParam(name = "contract", required = true) Contract contract) {
         try {
             contractCache.put(contract.getContractPK(), contract);
             Map<String, String> response = new HashMap<>();

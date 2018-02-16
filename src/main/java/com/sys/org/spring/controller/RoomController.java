@@ -73,6 +73,19 @@ public class RoomController {
         try {
             roomCache.put(room.getRoomPK(), room);
             Map<String, String> response = new HashMap<>();
+            response.put("msg", "Data inserted successfully.");
+            return new ResponseEntity(response, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ControllerUtility.createResponseEntity(e);
+        }
+    }
+
+    @PutMapping(value = "/room", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public ResponseEntity updateRoom(@RequestParam(name = "room", required = true) Room room) {
+        try {
+            roomCache.put(room.getRoomPK(), room);
+            Map<String, String> response = new HashMap<>();
             response.put("msg", "Data updated successfully.");
             return new ResponseEntity(response, HttpStatus.CREATED);
         } catch (Exception e) {

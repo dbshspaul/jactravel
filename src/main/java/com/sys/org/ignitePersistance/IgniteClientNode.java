@@ -19,6 +19,10 @@ import java.util.Arrays;
 public class IgniteClientNode {
     private static final Logger LOGGER = LoggerFactory.getLogger(IgniteClientNode.class);
 
+    /**
+     * this is for testing purpose, do not run this class in prod env.
+     * @param args
+     */
     public static void main(String[] args) {
         Ignition.setClientMode(true);
         org.apache.ignite.configuration.IgniteConfiguration igniteConfiguration = new org.apache.ignite.configuration.IgniteConfiguration();

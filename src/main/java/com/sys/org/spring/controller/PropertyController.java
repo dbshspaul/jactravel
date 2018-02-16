@@ -70,11 +70,23 @@ public class PropertyController {
         try {
             propertyCache.put(property.getPropertyPK(), property);
             Map<String, String> response = new HashMap<>();
-            response.put("msg", "Data updated successfully.");
+            response.put("msg", "Data inserted successfully.");
             return new ResponseEntity(response, HttpStatus.CREATED);
         } catch (Exception e) {
             return ControllerUtility.createResponseEntity(e);
         }
     }
 
+    @PutMapping(value = "/property", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public ResponseEntity updateProperty(@RequestParam(name = "property", required = true) Property property) {
+        try {
+            propertyCache.put(property.getPropertyPK(), property);
+            Map<String, String> response = new HashMap<>();
+            response.put("msg", "Data updated successfully.");
+            return new ResponseEntity(response, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ControllerUtility.createResponseEntity(e);
+        }
+    }
 }

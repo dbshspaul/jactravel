@@ -74,6 +74,19 @@ public class RateController {
         try {
             rateCache.put(rate.getRatePK(), rate);
             Map<String, String> response = new HashMap<>();
+            response.put("msg", "Data inserted successfully.");
+            return new ResponseEntity(response, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ControllerUtility.createResponseEntity(e);
+        }
+    }
+
+    @PutMapping(value = "/rate", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public ResponseEntity updateRate(@RequestParam(name = "rate", required = true) Rate rate) {
+        try {
+            rateCache.put(rate.getRatePK(), rate);
+            Map<String, String> response = new HashMap<>();
             response.put("msg", "Data updated successfully.");
             return new ResponseEntity(response, HttpStatus.CREATED);
         } catch (Exception e) {
