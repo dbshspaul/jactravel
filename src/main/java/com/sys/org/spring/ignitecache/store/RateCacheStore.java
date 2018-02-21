@@ -7,15 +7,22 @@ import org.apache.ignite.cache.store.CacheStoreAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.cache.Cache;
 import javax.cache.integration.CacheLoaderException;
 import javax.cache.integration.CacheWriterException;
 
+@Service
 public class RateCacheStore extends CacheStoreAdapter<RatePK, Rate> {
     Logger logger = LoggerFactory.getLogger(RateCacheStore.class);
-    @Autowired
+
     private static RateRepository rateRepository;
+
+    @Autowired
+    public static void setRateRepository(RateRepository rateRepository) {
+        RateCacheStore.rateRepository = rateRepository;
+    }
 
     @Override
     public Rate load(RatePK ratePK) throws CacheLoaderException {

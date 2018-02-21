@@ -34,7 +34,7 @@ public class KafkaController {
     IgniteCache<RoomPK, Room> roomCache;
 
 
-    @KafkaListener(topics = "${kafka.topic.name}")
+    @KafkaListener(topics = "${kafka.consumer.topic.name}")
     public void receive(String payload) {
         LOGGER.info("New payload received from kafka");
         ObjectMapper mapper = new ObjectMapper();

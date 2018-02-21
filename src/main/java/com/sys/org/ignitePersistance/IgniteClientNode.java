@@ -47,7 +47,7 @@ public class IgniteClientNode {
 
 
         Ignite ignite = Ignition.start(igniteConfiguration);
-        ignite.active(true);
+//        ignite.active(true);
 //        Ignite ignite = Ignition.start();
         LOGGER.info(">>>>>>>>>>>>>>>>Ignite Cache Started successfully");
     }

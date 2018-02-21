@@ -7,16 +7,22 @@ import org.apache.ignite.cache.store.CacheStoreAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.cache.Cache;
 import javax.cache.integration.CacheLoaderException;
 import javax.cache.integration.CacheWriterException;
 
+@Service
 public class PropertyCacheStore extends CacheStoreAdapter<PropertyPK, Property> {
     Logger logger = LoggerFactory.getLogger(PropertyCacheStore.class);
-    @Autowired
+
     private static PropertyRepository propertyRepository;
 
+    @Autowired
+    public static void setPropertyRepository(PropertyRepository propertyRepository) {
+        PropertyCacheStore.propertyRepository = propertyRepository;
+    }
 
     @Override
     public Property load(PropertyPK integer) throws CacheLoaderException {

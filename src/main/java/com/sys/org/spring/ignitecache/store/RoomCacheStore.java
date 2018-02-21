@@ -7,16 +7,22 @@ import org.apache.ignite.cache.store.CacheStoreAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.cache.Cache;
 import javax.cache.integration.CacheLoaderException;
 import javax.cache.integration.CacheWriterException;
 
+@Service
 public class RoomCacheStore extends CacheStoreAdapter<RoomPK, Room> {
     Logger logger = LoggerFactory.getLogger(RoomCacheStore.class);
-    @Autowired
+
     private static RoomRepository roomRepository;
 
+    @Autowired
+    public static void setRoomRepository(RoomRepository roomRepository) {
+        RoomCacheStore.roomRepository = roomRepository;
+    }
 
     @Override
     public Room load(RoomPK roomPK) throws CacheLoaderException {
