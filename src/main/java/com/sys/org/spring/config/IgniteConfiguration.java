@@ -89,9 +89,9 @@ public class IgniteConfiguration {
     private IgniteCache createCache(String cacheName, Class clazz) {
         CacheConfiguration contractCacheConfig = new CacheConfiguration();
         contractCacheConfig.setName(cacheName);
-        contractCacheConfig.setReadThrough(true);
-        contractCacheConfig.setWriteThrough(true);
-        contractCacheConfig.setWriteBehindEnabled(true);
+//        contractCacheConfig.setReadThrough(true);
+//        contractCacheConfig.setWriteThrough(true);
+//        contractCacheConfig.setWriteBehindEnabled(true);
         contractCacheConfig.setBackups(1);
         contractCacheConfig.setCacheMode(CacheMode.PARTITIONED);
         contractCacheConfig.setCacheStoreFactory(FactoryBuilder.factoryOf(clazz));
