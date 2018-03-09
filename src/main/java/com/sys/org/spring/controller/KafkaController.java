@@ -1,6 +1,7 @@
 package com.sys.org.spring.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sys.org.mongo.collections.model.PropertyRoomType;
 import com.sys.org.spring.idclass.ContractPK;
 import com.sys.org.spring.idclass.PropertyPK;
 import com.sys.org.spring.idclass.RatePK;
@@ -60,6 +61,12 @@ public class KafkaController {
             Property property = mapper.readValue(payload, Property.class);
             propertyCache.put(property.getPropertyPK(), property);
             LOGGER.info("Property save/updated successfully.");
+        } catch (IOException e) {
+        }
+        try {
+            com.sys.org.mongo.collections.model.Contract contract = mapper.readValue(payload, com.sys.org.mongo.collections.model.Contract.class);
+
+            LOGGER.info("mongo schema contract contract parse successfully.");
         } catch (IOException e) {
         }
     }
