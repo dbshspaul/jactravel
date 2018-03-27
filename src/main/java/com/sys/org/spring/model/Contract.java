@@ -1,7 +1,9 @@
 package com.sys.org.spring.model;
 
 import com.datastax.driver.core.LocalDate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sys.org.spring.idclass.ContractPK;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
@@ -20,6 +22,17 @@ public class Contract {
     private Boolean no_end_dates;
     private LocalDate stay_from;
     private LocalDate stay_to;
+    @JsonIgnore
+    @Transient
+    private boolean isSync;
+
+    public boolean isSync() {
+        return isSync;
+    }
+
+    public void setSync(boolean sync) {
+        isSync = sync;
+    }
 
     public ContractPK getContractPK() {
         return contractPK;

@@ -1,6 +1,8 @@
 package com.sys.org.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sys.org.spring.idclass.PropertyPK;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
@@ -15,6 +17,17 @@ public class Property {
     private BigDecimal star_rating;
     private Boolean status;
     private String timezone_id;
+    @JsonIgnore
+    @Transient
+    private boolean isSync;
+
+    public boolean isSync() {
+        return isSync;
+    }
+
+    public void setSync(boolean sync) {
+        isSync = sync;
+    }
 
     public Integer getCutoff_time() {
         return cutoff_time;

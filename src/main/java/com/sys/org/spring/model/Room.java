@@ -1,6 +1,8 @@
 package com.sys.org.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sys.org.spring.idclass.RoomPK;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
@@ -41,6 +43,17 @@ public class Room {
     private Boolean youth_count_as_adults;
     private Integer youth_max_age;
     private Integer youth_min_age;
+    @JsonIgnore
+    @Transient
+    private boolean isSync;
+
+    public boolean isSync() {
+        return isSync;
+    }
+
+    public void setSync(boolean sync) {
+        isSync = sync;
+    }
 
     public RoomPK getRoomPK() {
         return roomPK;

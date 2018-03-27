@@ -1,6 +1,8 @@
 package com.sys.org.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sys.org.spring.idclass.RatePK;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
@@ -101,6 +103,17 @@ public class Rate {
     private BigDecimal youth_extra_charge;
     private BigDecimal youth_extra_split2_charge;
     private BigDecimal youth_split2_charge;
+    @JsonIgnore
+    @Transient
+    private boolean isSync;
+
+    public boolean isSync() {
+        return isSync;
+    }
+
+    public void setSync(boolean sync) {
+        isSync = sync;
+    }
 
     public RatePK getRatePK() {
         return ratePK;
